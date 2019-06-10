@@ -1,0 +1,12 @@
+name: QuickClose
+version: ${project.version}
+main: com.benzoft.quickclose.QuickClose
+api-version: 1.13
+authors: [Benz56]
+description: Close inventories with your mouse.
+website: benzoft.com
+commands:
+  quickclose:
+    usage: /quickclose
+    description: User command.
+    aliases: [quickc, qclose, qc]
