@@ -20,7 +20,7 @@ InventoryTypeBlackListInvert: false
 # Only trigger on clicks that are performed with no item in the hand.
 EmptyHandOnly: true
 
-# The amount of consecutive clicks needed to quick close an inventory.
+# The number of consecutive clicks needed to quick close an inventory.
 # E.g. setting the value to 2 will require a double click etc.
 ClicksToClose: 1
 

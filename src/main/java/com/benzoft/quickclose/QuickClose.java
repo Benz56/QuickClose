@@ -17,6 +17,7 @@ public final class QuickClose extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
+        ConfigFile.getInstance();
         Objects.requireNonNull(getCommand("quickclose")).setExecutor(this);
     }
 

@@ -30,7 +30,7 @@ public final class ConfigFile {
             try {
                 return Stream.of(InventoryType.valueOf(s));
             } catch (final IllegalArgumentException e) {
-                MessageUtil.send(null, "&e" + s + "&c in InventoryTypeBlackList is not a valid InventoryType!");
+                MessageUtil.send(null, "&7[&eQuickClose&7] &e" + s + "&c in InventoryTypeBlackList is not a valid InventoryType!");
             }
             return Stream.empty();
         }).collect(Collectors.toList());
@@ -42,8 +42,8 @@ public final class ConfigFile {
             clickTypeToClose = ClickType.valueOf(config.getString("ClickTypeToClose", "RIGHT"));
             if (!Arrays.asList(ClickType.LEFT, ClickType.MIDDLE, ClickType.RIGHT).contains(clickTypeToClose)) throw new IllegalArgumentException();
         } catch (final IllegalArgumentException e) {
-            clickTypeToClose = ClickType.LEFT;
-            MessageUtil.send(null, "&cClickTypeToClose is invalid. Using default \"LEFT\"! Valid are: LEFT, MIDDLE, RIGHT");
+            clickTypeToClose = ClickType.RIGHT;
+            MessageUtil.send(null, "&7[&eQuickClose&7] &cClickTypeToClose is invalid. Using default \"RIGHT\"! Valid are: LEFT, MIDDLE, RIGHT");
         }
     }
 
