@@ -29,3 +29,6 @@ ConsecutiveClicksTimeFrame: 500
 
 # The type of click needed to trigger quick close: LEFT, MIDDLE, or RIGHT
 ClickTypeToClose: 'RIGHT'
+
+# By enabling this any inventory with a custom name won't be quick closeable.
+IgnoreNamedInventories: false

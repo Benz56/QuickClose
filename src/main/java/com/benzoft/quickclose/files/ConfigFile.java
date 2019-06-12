@@ -21,6 +21,7 @@ public final class ConfigFile {
     private final boolean emptyHandOnly;
     private final int clicksToClose;
     private final long consecutiveClicksTimeFrame;
+    private final boolean ignoreNamedInventories;
     private ClickType clickTypeToClose;
 
     private ConfigFile() {
@@ -45,6 +46,7 @@ public final class ConfigFile {
             clickTypeToClose = ClickType.RIGHT;
             MessageUtil.send(null, "&7[&eQuickClose&7] &cClickTypeToClose is invalid. Using default \"RIGHT\"! Valid are: LEFT, MIDDLE, RIGHT");
         }
+        ignoreNamedInventories = config.getBoolean("IgnoreNamedInventories", false);
     }
 
     public static ConfigFile getInstance() {
@@ -76,5 +78,9 @@ public final class ConfigFile {
 
     public boolean isEmptyHandOnly() {
         return emptyHandOnly;
+    }
+
+    public boolean isIgnoreNamedInventories() {
+        return ignoreNamedInventories;
     }
 }
