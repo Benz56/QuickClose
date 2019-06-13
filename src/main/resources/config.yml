@@ -32,3 +32,6 @@ ClickTypeToClose: 'RIGHT'
 
 # By enabling this any inventory with a custom name won't be quick closeable.
 IgnoreNamedInventories: false
+
+# Enable or disable the update checker.
+UpdateCheckerEnabled: true

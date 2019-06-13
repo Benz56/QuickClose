@@ -22,6 +22,7 @@ public final class ConfigFile {
     private final int clicksToClose;
     private final long consecutiveClicksTimeFrame;
     private final boolean ignoreNamedInventories;
+    private final boolean updateCheckerEnabled;
     private ClickType clickTypeToClose;
 
     private ConfigFile() {
@@ -47,6 +48,7 @@ public final class ConfigFile {
             MessageUtil.send(null, "&7[&eQuickClose&7] &cClickTypeToClose is invalid. Using default \"RIGHT\"! Valid are: LEFT, MIDDLE, RIGHT");
         }
         ignoreNamedInventories = config.getBoolean("IgnoreNamedInventories", false);
+        updateCheckerEnabled = config.getBoolean("UpdateCheckerEnabled", true);
     }
 
     public static ConfigFile getInstance() {
@@ -82,5 +84,9 @@ public final class ConfigFile {
 
     public boolean isIgnoreNamedInventories() {
         return ignoreNamedInventories;
+    }
+
+    public boolean isUpdateCheckerEnabled() {
+        return updateCheckerEnabled;
     }
 }
