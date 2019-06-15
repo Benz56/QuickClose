@@ -2,6 +2,8 @@ package com.benzoft.quickclose.files;
 
 import com.benzoft.quickclose.QuickClose;
 import com.benzoft.quickclose.util.MessageUtil;
+import lombok.AccessLevel;
+import lombok.Getter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryType;
@@ -12,11 +14,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Getter
 public final class ConfigFile {
 
     private static ConfigFile file;
 
+    @Getter(AccessLevel.NONE)
     private final List<InventoryType> inventoryTypeBlackList;
+    @Getter(AccessLevel.NONE)
     private final boolean inventoryTypeBlackListInvert;
     private final boolean emptyHandOnly;
     private final int clicksToClose;
@@ -64,29 +69,5 @@ public final class ConfigFile {
 
     public boolean isCloseableInventoryType(final InventoryType inventoryType) {
         return inventoryTypeBlackListInvert == inventoryTypeBlackList.contains(inventoryType);
-    }
-
-    public int getClicksToClose() {
-        return clicksToClose;
-    }
-
-    public ClickType getClickTypeToClose() {
-        return clickTypeToClose;
-    }
-
-    public long getConsecutiveClicksTimeFrame() {
-        return consecutiveClicksTimeFrame;
-    }
-
-    public boolean isEmptyHandOnly() {
-        return emptyHandOnly;
-    }
-
-    public boolean isIgnoreNamedInventories() {
-        return ignoreNamedInventories;
-    }
-
-    public boolean isUpdateCheckerEnabled() {
-        return updateCheckerEnabled;
     }
 }
