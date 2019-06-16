@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Objects;
 
 public final class QuickClose extends JavaPlugin implements Listener {
@@ -30,5 +31,10 @@ public final class QuickClose extends JavaPlugin implements Listener {
             MessageUtil.send(player, "&7[&eQuickClose&7] &aConfiguration file successfully reloaded!");
         }
         return true;
+    }
+
+    @Override
+    public java.util.List<String> onTabComplete(final CommandSender sender, final Command command, final String alias, final String[] args) {
+        return args.length == 1 && "reload".startsWith(args[0]) && (sender == null || sender.isOp()) ? Collections.singletonList("reload") : null;
     }
 }
