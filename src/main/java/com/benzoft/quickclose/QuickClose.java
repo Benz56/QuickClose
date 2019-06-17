@@ -35,6 +35,6 @@ public final class QuickClose extends JavaPlugin implements Listener {
 
     @Override
     public java.util.List<String> onTabComplete(final CommandSender sender, final Command command, final String alias, final String[] args) {
-        return args.length == 1 && "reload".startsWith(args[0]) && (sender == null || sender.isOp()) ? Collections.singletonList("reload") : null;
+        return args.length == 1 && "reload".startsWith(args[0].toLowerCase()) && (sender == null || sender.isOp()) ? Collections.singletonList("reload") : null;
     }
 }
