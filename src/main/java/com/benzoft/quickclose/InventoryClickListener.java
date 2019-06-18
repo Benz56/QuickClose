@@ -53,7 +53,7 @@ public class InventoryClickListener implements Listener {
 
         if (event.getWhoClicked() instanceof Player &&                                                                                                // Is player
                 event.getSlotType() == InventoryType.SlotType.OUTSIDE &&                                                                              // Is Outside
-                event.getClick() == ConfigFile.getInstance().getClickTypeToClose() &&                                                                 // Is correct click type
+                ConfigFile.getInstance().getClickTypeToClose().contains(event.getClick()) &&                                                          // Is correct click type
                 ConfigFile.getInstance().isCloseableInventoryType(type) &&                                                                            // Is closeable InventoryType
                 (!ConfigFile.getInstance().isIgnoreNamedInventories() || DEFAULT_NAME_MAP.get(type.toString()).contains(openInventory.getTitle())) && // Is Ignore name or unnamed.
                 (!ConfigFile.getInstance().isEmptyHandOnly() || event.getCursor() == null || event.getCursor().getType() == Material.AIR) &&          // Hand check

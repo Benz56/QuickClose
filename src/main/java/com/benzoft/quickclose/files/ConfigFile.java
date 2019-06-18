@@ -9,8 +9,7 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.plugin.Plugin;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -28,7 +27,7 @@ public final class ConfigFile {
     private final long consecutiveClicksTimeFrame;
     private final boolean ignoreNamedInventories;
     private final boolean updateCheckerEnabled;
-    private ClickType clickTypeToClose;
+    private final Set<ClickType> clickTypeToClose = new HashSet<>();
 
     private ConfigFile() {
         QuickClose.getPlugin(QuickClose.class).saveDefaultConfig();
@@ -45,12 +44,18 @@ public final class ConfigFile {
         emptyHandOnly = config.getBoolean("EmptyHandOnly", true);
         clicksToClose = config.getInt("ClicksToClose", 1);
         consecutiveClicksTimeFrame = config.getLong("ConsecutiveClicksTimeFrame", 500L);
-        try {
-            clickTypeToClose = ClickType.valueOf(config.getString("ClickTypeToClose", "RIGHT"));
-            if (!Arrays.asList(ClickType.LEFT, ClickType.MIDDLE, ClickType.RIGHT).contains(clickTypeToClose)) throw new IllegalArgumentException();
-        } catch (final IllegalArgumentException e) {
-            clickTypeToClose = ClickType.RIGHT;
-            MessageUtil.send(null, "&7[&eQuickClose&7] &cClickTypeToClose is invalid. Using default \"RIGHT\"! Valid are: LEFT, MIDDLE, RIGHT");
+        Stream.of(Objects.requireNonNull(config.getString("ClickTypeToClose", "")).replaceAll(" ", "").split(",")).filter(s -> !s.isEmpty()).map(String::toUpperCase).forEach(type -> {
+            try {
+                final ClickType clickType = ClickType.valueOf(type);
+                if (!Arrays.asList(ClickType.LEFT, ClickType.MIDDLE, ClickType.RIGHT).contains(clickType)) throw new IllegalArgumentException();
+                clickTypeToClose.add(clickType);
+            } catch (final IllegalArgumentException e) {
+                MessageUtil.send(null, "&7[&eQuickClose&7] &e" + type + "&c in ClickTypeToClose is not a valid ClickType. Valid are: LEFT, MIDDLE, RIGHT");
+            }
+        });
+        if (clickTypeToClose.isEmpty()) {
+            MessageUtil.send(null, "&7[&eQuickClose&7] &cNo valid ClickTypes found in ClickTypeToClose. Using default \"RIGHT\"");
+            clickTypeToClose.add(ClickType.RIGHT);
         }
         ignoreNamedInventories = config.getBoolean("IgnoreNamedInventories", false);
         updateCheckerEnabled = config.getBoolean("UpdateCheckerEnabled", true);

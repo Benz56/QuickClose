@@ -28,6 +28,7 @@ ClicksToClose: 1
 ConsecutiveClicksTimeFrame: 500
 
 # The type of click needed to trigger quick close: LEFT, MIDDLE, or RIGHT
+# You may specify multiple by comma separating the types e.g. 'RIGHT, LEFT'
 ClickTypeToClose: 'RIGHT'
 
 # By enabling this any inventory with a custom name won't be quick closeable.
