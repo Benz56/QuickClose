@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public final class QuickClose extends JavaPlugin implements Listener {
@@ -35,7 +36,7 @@ public final class QuickClose extends JavaPlugin implements Listener {
     }
 
     @Override
-    public java.util.List<String> onTabComplete(final CommandSender sender, final Command command, final String alias, final String[] args) {
+    public List<String> onTabComplete(final CommandSender sender, final Command command, final String alias, final String[] args) {
         return args.length == 1 && "reload".startsWith(args[0].toLowerCase()) && (sender == null || sender.isOp()) ? Collections.singletonList("reload") : null;
     }
 }
