@@ -27,6 +27,7 @@ public final class ConfigFile {
     private final long consecutiveClicksTimeFrame;
     private final boolean ignoreNamedInventories;
     private final boolean updateCheckerEnabled;
+    private final boolean updateCheckerPermissionOnly;
     private final Set<ClickType> clickTypeToClose = new HashSet<>();
 
     private ConfigFile() {
@@ -59,6 +60,7 @@ public final class ConfigFile {
         }
         ignoreNamedInventories = config.getBoolean("IgnoreNamedInventories", false);
         updateCheckerEnabled = config.getBoolean("UpdateCheckerEnabled", true);
+        updateCheckerPermissionOnly = config.getBoolean("UpdateCheckerPermissionOnly", false);
     }
 
     public static ConfigFile getInstance() {

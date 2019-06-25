@@ -34,5 +34,10 @@ ClickTypeToClose: 'RIGHT'
 # By enabling this any inventory with a custom name won't be quick closeable.
 IgnoreNamedInventories: false
 
+# Update Checker.
 # Enable or disable the update checker.
 UpdateCheckerEnabled: true
+# false: All OPs are notified of a new update when they join.
+# true: OPs are only notified if they have the quickclose.update permission as well.
+# N.B. any user with the quickclose.update permission is notified; OP or not.
+UpdateCheckerPermissionOnly: false
