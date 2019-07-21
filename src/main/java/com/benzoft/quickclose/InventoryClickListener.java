@@ -1,6 +1,8 @@
 package com.benzoft.quickclose;
 
 import com.benzoft.quickclose.files.ConfigFile;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,32 +19,29 @@ public class InventoryClickListener implements Listener {
     // Substitute for getDefaultTitle() which is inconsistent.
     // The key is the InventoryType as String to avoid issues on older versions.
     // Values are the names getTitle() returns on different versions.
-    private static final Map<String, Set<String>> DEFAULT_NAME_MAP = new HashMap<>();
-
-    static {
-        DEFAULT_NAME_MAP.put("CHEST", new HashSet<>(Arrays.asList("Chest", "container.chest", "Minecart with Chest", "Beacon"))); // Yea. A Beacon is a Chest in 1.14 -.-
-        DEFAULT_NAME_MAP.put("DISPENSER", new HashSet<>(Arrays.asList("Dispenser", "container.dispenser")));
-        DEFAULT_NAME_MAP.put("DROPPER", new HashSet<>(Arrays.asList("Dropper", "container.dropper")));
-        DEFAULT_NAME_MAP.put("FURNACE", new HashSet<>(Arrays.asList("Furnace", "container.furnace")));
-        DEFAULT_NAME_MAP.put("WORKBENCH", new HashSet<>(Arrays.asList("container.crafting", "Crafting")));
-        DEFAULT_NAME_MAP.put("CRAFTING", new HashSet<>(Arrays.asList("container.crafting", "Crafting")));
-        DEFAULT_NAME_MAP.put("ENCHANTING", new HashSet<>(Arrays.asList("Enchanting", "Enchant")));
-        DEFAULT_NAME_MAP.put("BREWING", new HashSet<>(Arrays.asList("Brewing", "Brewing Stand", "container.brewing")));
-        DEFAULT_NAME_MAP.put("PLAYER", Collections.singleton("Player"));
-        DEFAULT_NAME_MAP.put("MERCHANT", new HashSet<>(Arrays.asList("mob.villager", "None", "Armorer", "Butcher", "Cartographer", "Cleric", "Farmer", "Fisherman", "Fletcher", "Leatherworker", "Librarian", "Mason", "Nitwit", "Shepherd", "Toolsmith", "Weaponsmith")));
-        DEFAULT_NAME_MAP.put("ENDER_CHEST", new HashSet<>(Arrays.asList("Ender Chest", "container.enderchest")));
-        DEFAULT_NAME_MAP.put("ANVIL", new HashSet<>(Arrays.asList("Repairing", "Repair")));
-        DEFAULT_NAME_MAP.put("BEACON", new HashSet<>(Arrays.asList("container.beacon", "Beacon")));
-        DEFAULT_NAME_MAP.put("HOPPER", new HashSet<>(Arrays.asList("Item Hopper", "Minecart with Hopper", "container.hopper")));
-        DEFAULT_NAME_MAP.put("SHULKER_BOX", new HashSet<>(Arrays.asList("Shulker Box", "container.shulkerBox")));
-        DEFAULT_NAME_MAP.put("BARREL", Collections.singleton("Barrel"));
-        DEFAULT_NAME_MAP.put("BLAST_FURNACE", Collections.singleton("Blast Furnace"));
-        DEFAULT_NAME_MAP.put("SMOKER", Collections.singleton("Smoker"));
-        DEFAULT_NAME_MAP.put("LOOM", Collections.singleton("Loom"));
-        DEFAULT_NAME_MAP.put("CARTOGRAPHY", Collections.singleton("Cartography Table"));
-        DEFAULT_NAME_MAP.put("GRINDSTONE", Collections.singleton("Repair & Disenchant"));
-        DEFAULT_NAME_MAP.put("STONECUTTER", Collections.singleton("Stonecutter"));
-    }
+    private static final Map<String, Set<String>> DEFAULT_NAME_MAP = ImmutableMap.<String, Set<String>>builder()
+            .put("CHEST", ImmutableSet.of("Chest", "Large Chest", "container.chest", "container.chestDouble", "Minecart with Chest", "Beacon")) // Yea. A Beacon is a Chest in 1.14 -.-
+            .put("DISPENSER", ImmutableSet.of("Dispenser", "container.dispenser"))
+            .put("DROPPER", ImmutableSet.of("Dropper", "container.dropper"))
+            .put("FURNACE", ImmutableSet.of("Furnace", "container.furnace"))
+            .put("WORKBENCH", ImmutableSet.of("container.crafting", "Crafting"))
+            .put("CRAFTING", ImmutableSet.of("container.crafting", "Crafting"))
+            .put("ENCHANTING", ImmutableSet.of("Enchanting", "Enchant"))
+            .put("BREWING", ImmutableSet.of("Brewing", "Brewing Stand", "container.brewing"))
+            .put("PLAYER", Collections.singleton("Player"))
+            .put("MERCHANT", ImmutableSet.of("mob.villager", "None", "Armorer", "Butcher", "Cartographer", "Cleric", "Farmer", "Fisherman", "Fletcher", "Leatherworker", "Librarian", "Mason", "Nitwit", "Shepherd", "Toolsmith", "Weaponsmith"))
+            .put("ENDER_CHEST", ImmutableSet.of("Ender Chest", "container.enderchest"))
+            .put("ANVIL", ImmutableSet.of("Repairing", "Repair"))
+            .put("BEACON", ImmutableSet.of("container.beacon", "Beacon"))
+            .put("HOPPER", ImmutableSet.of("Item Hopper", "Minecart with Hopper", "container.hopper"))
+            .put("SHULKER_BOX", ImmutableSet.of("Shulker Box", "container.shulkerBox"))
+            .put("BARREL", Collections.singleton("Barrel"))
+            .put("BLAST_FURNACE", Collections.singleton("Blast Furnace"))
+            .put("SMOKER", Collections.singleton("Smoker"))
+            .put("LOOM", Collections.singleton("Loom"))
+            .put("CARTOGRAPHY", Collections.singleton("Cartography Table"))
+            .put("GRINDSTONE", Collections.singleton("Repair & Disenchant"))
+            .put("STONECUTTER", Collections.singleton("Stonecutter")).build();
 
     private final Map<UUID, Supplier<Boolean>> clickCountMap = new HashMap<>();
 
