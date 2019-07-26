@@ -4,6 +4,7 @@ import com.benzoft.quickclose.files.ConfigFile;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import org.bukkit.Material;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -47,16 +48,18 @@ public class InventoryClickListener implements Listener {
 
     @EventHandler
     public void onInventoryClick(final InventoryClickEvent event) {
-        final InventoryView openInventory = event.getWhoClicked().getOpenInventory();
+        final HumanEntity clicker = event.getWhoClicked();
+        final InventoryView openInventory = clicker.getOpenInventory();
         final InventoryType type = openInventory.getType();
 
-        if (event.getWhoClicked() instanceof Player &&                                                                                                // Is player
+        if (clicker instanceof Player &&                                                                                                              // Is player
                 event.getSlotType() == InventoryType.SlotType.OUTSIDE &&                                                                              // Is Outside
+                clicker.hasPermission("quickclose.use") &&                                                                                      // Has permission
                 ConfigFile.getInstance().getClickTypeToClose().contains(event.getClick()) &&                                                          // Is correct click type
                 ConfigFile.getInstance().isCloseableInventoryType(type) &&                                                                            // Is closeable InventoryType
                 (!ConfigFile.getInstance().isIgnoreNamedInventories() || DEFAULT_NAME_MAP.get(type.toString()).contains(openInventory.getTitle())) && // Is Ignore name or unnamed.
                 (!ConfigFile.getInstance().isEmptyHandOnly() || event.getCursor() == null || event.getCursor().getType() == Material.AIR) &&          // Hand check
-                (ConfigFile.getInstance().getClicksToClose() == 1 || isFinalMultiClick(event.getWhoClicked().getUniqueId()))                          // Is correct click amount
+                (ConfigFile.getInstance().getClicksToClose() == 1 || isFinalMultiClick(clicker.getUniqueId()))                                        // Is correct click amount
         ) {
             openInventory.close();
         }

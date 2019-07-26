@@ -10,3 +10,6 @@ commands:
     usage: /quickclose
     description: User command.
     aliases: [quickc, qclose, qc]
+permissions:
+  quickclose.use:
+    default: true
