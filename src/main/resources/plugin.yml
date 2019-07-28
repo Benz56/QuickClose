@@ -13,3 +13,5 @@ commands:
 permissions:
   quickclose.use:
     default: true
+  quickclose.update:
+    default: false

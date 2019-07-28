@@ -9,8 +9,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.permissions.Permission;
-import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -23,7 +21,6 @@ import java.net.URL;
 class UpdateChecker implements Listener {
 
     private static final int ID = 68193;
-    private static final Permission UPDATE_PERM = new Permission("quickclose.update", PermissionDefault.FALSE);
 
     private final JavaPlugin javaPlugin;
     private final String localPluginVersion;
@@ -64,7 +61,7 @@ class UpdateChecker implements Listener {
                         @EventHandler(priority = EventPriority.MONITOR)
                         public void onPlayerJoin(final PlayerJoinEvent event) {
                             final Player player = event.getPlayer();
-                            if (player.hasPermission(UPDATE_PERM) || (player.isOp() && !ConfigFile.getInstance().isUpdateCheckerPermissionOnly())) {
+                            if (player.hasPermission("quickclose.update") || (player.isOp() && !ConfigFile.getInstance().isUpdateCheckerPermissionOnly())) {
                                 MessageUtil.send(event.getPlayer(), "&7[&eQuickClose&7] &fA new update is available at:");
                                 MessageUtil.send(event.getPlayer(), "&bhttps://www.spigotmc.org/resources/" + ID + "/updates");
                             }
