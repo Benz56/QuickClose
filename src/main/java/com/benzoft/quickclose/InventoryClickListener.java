@@ -15,7 +15,7 @@ import org.bukkit.inventory.InventoryView;
 import java.util.*;
 import java.util.function.Supplier;
 
-public class InventoryClickListener implements Listener {
+class InventoryClickListener implements Listener {
 
     // Substitute for getDefaultTitle() which is inconsistent.
     // The key is the InventoryType as String to avoid issues on older versions.

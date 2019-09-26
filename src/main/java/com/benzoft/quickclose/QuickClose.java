@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,7 +27,7 @@ public final class QuickClose extends JavaPlugin implements Listener {
     }
 
     @Override
-    public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
+    public boolean onCommand(@NotNull final CommandSender sender, @NotNull final Command command, @NotNull final String label, final String[] args) {
         final Player player = sender instanceof Player ? (Player) sender : null;
         if (args.length >= 1 && Arrays.asList("reload", "rel", "r").contains(args[0].toLowerCase()) && (player == null || player.isOp())) {
             ConfigFile.reload(this);
@@ -36,7 +37,7 @@ public final class QuickClose extends JavaPlugin implements Listener {
     }
 
     @Override
-    public List<String> onTabComplete(final CommandSender sender, final Command command, final String alias, final String[] args) {
-        return args.length == 1 && "reload".startsWith(args[0].toLowerCase()) && (sender == null || sender.isOp()) ? Collections.singletonList("reload") : null;
+    public List<String> onTabComplete(@NotNull final CommandSender sender, @NotNull final Command command, @NotNull final String alias, final String[] args) {
+        return args.length == 1 && "reload".startsWith(args[0].toLowerCase()) && sender.isOp() ? Collections.singletonList("reload") : null;
     }
 }
