@@ -28,10 +28,9 @@ public final class QuickClose extends JavaPlugin implements Listener {
 
     @Override
     public boolean onCommand(@NotNull final CommandSender sender, @NotNull final Command command, @NotNull final String label, final String[] args) {
-        final Player player = sender instanceof Player ? (Player) sender : null;
-        if (args.length >= 1 && Arrays.asList("reload", "rel", "r").contains(args[0].toLowerCase()) && (player == null || player.isOp())) {
+        if (args.length >= 1 && Arrays.asList("reload", "rel", "r").contains(args[0].toLowerCase()) && sender.isOp()) {
             ConfigFile.reload(this);
-            MessageUtil.send(player, "&7[&eQuickClose&7] &aConfiguration file successfully reloaded!");
+            MessageUtil.send(sender instanceof Player ? (Player) sender : null, "&7[&eQuickClose&7] &aConfiguration file successfully reloaded!");
         }
         return true;
     }
