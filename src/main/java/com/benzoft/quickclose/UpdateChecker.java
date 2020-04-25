@@ -17,6 +17,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.stream.IntStream;
 
 class UpdateChecker implements Listener {
 
@@ -50,8 +52,7 @@ class UpdateChecker implements Listener {
                         return;
                     }
 
-                    //Check if the requested version is the same as the one in your plugin.yml.
-                    if (localPluginVersion.equals(spigotPluginVersion)) return;
+                    if (isLatestVersion()) return;
 
                     MessageUtil.send(null, "&7[&eQuickClose&7] &fA new update is available at:");
                     MessageUtil.send(null, "&bhttps://www.spigotmc.org/resources/" + ID + "/updates");
@@ -73,5 +74,15 @@ class UpdateChecker implements Listener {
                 });
             }
         }.runTaskTimer(javaPlugin, 0, 12_000);
+    }
+
+    private boolean isLatestVersion() {
+        try {
+            final int[] local = Arrays.stream(localPluginVersion.split("\\.")).mapToInt(Integer::parseInt).toArray();
+            final int[] spigot = Arrays.stream(spigotPluginVersion.split("\\.")).mapToInt(Integer::parseInt).toArray();
+            return IntStream.range(0, local.length).noneMatch(i -> spigot[i] > local[i]);
+        } catch (final NumberFormatException ignored) {
+            return localPluginVersion.equals(spigotPluginVersion);
+        }
     }
 }
